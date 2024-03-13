@@ -1,11 +1,11 @@
 import { ProjectModel } from '@app/infra/db/mongoose/schemas/project.schema';
 import { Injectable } from '@nestjs/common';
-import { ProjectRepositoryDb } from '../db-repositories/project-repository.interface';
-import { Project } from '../interfaces/project.interface';
-import { PaginatedResponse } from '../interfaces/response.interface';
+import { ProjectRepositoryDb } from '../../../../core/db-repositories/project-repository.interface';
+import { Project } from '../../../../core/interfaces/project.interface';
+import { PaginatedResponse } from '../../../../core/interfaces/response.interface';
 
 @Injectable()
-export class ProjectRepository implements ProjectRepositoryDb {
+export class MongooseProjectRepository implements ProjectRepositoryDb {
   async create(project: Omit<Project, '_id' | 'tasks'>): Promise<void> {
     await ProjectModel.create(project);
   }

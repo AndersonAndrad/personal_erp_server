@@ -1,11 +1,14 @@
-import { Task, TaskNotation } from '../interfaces/tasks.interface';
+import {
+  Task,
+  TaskNotation,
+} from '../../../../core/interfaces/tasks.interface';
 
 import { TaskRepositoryDb } from '@app/core/db-repositories/tasks-repository.interface';
 import { Injectable } from '@nestjs/common';
-import { PaginatedResponse } from '../interfaces/response.interface';
+import { PaginatedResponse } from '../../../../core/interfaces/response.interface';
 
 @Injectable()
-export class TaskRepository implements TaskRepositoryDb {
+export class MongooseTaskRepository implements TaskRepositoryDb {
   finishTask(taskId: string): Promise<void> {
     throw new Error('Method not implemented.');
   }
