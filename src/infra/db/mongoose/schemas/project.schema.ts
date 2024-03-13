@@ -1,7 +1,7 @@
-import { Project } from '@app/modules/manager-project/interfaces/project.interface';
+import { Project } from '@app/core/interfaces/project.interface';
 import mongoose from 'mongoose';
 
-export const ProjectSchame = new mongoose.Schema<Project>({
+export const ProjectSchema = new mongoose.Schema<Project>({
   name: {
     type: String,
     required: true,
@@ -18,5 +18,5 @@ export const ProjectSchame = new mongoose.Schema<Project>({
 
 export const ProjectModel: mongoose.Model<Project> = mongoose.model(
   'projects',
-  ProjectSchame,
+  ProjectSchema,
 );

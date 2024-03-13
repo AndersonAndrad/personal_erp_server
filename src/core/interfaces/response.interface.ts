@@ -1,6 +1,6 @@
 export interface PaginatedResponse<TypeEntity> extends ErrorResponse {
   items: TypeEntity[];
-  quantityItems: number;
+  meta: Meta;
 }
 
 export interface ErrorResponse {
@@ -8,4 +8,8 @@ export interface ErrorResponse {
     message: string;
     code: string;
   };
+}
+
+interface Meta {
+  quantityItems: number;
 }

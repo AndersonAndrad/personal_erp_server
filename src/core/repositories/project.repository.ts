@@ -1,11 +1,11 @@
-import { ProjectModel } from '@app/infra/db/mongoose/schemas/manager-project/project.schema';
-import { PaginatedResponse } from '@app/modules/shared/response.interface';
+import { ProjectModel } from '@app/infra/db/mongoose/schemas/project.schema';
 import { Injectable } from '@nestjs/common';
-import { ProjectRepositoryInteface } from '../interfaces/project-repository.interface';
+import { ProjectRepositoryDb } from '../db-repositories/project-repository.interface';
 import { Project } from '../interfaces/project.interface';
+import { PaginatedResponse } from '../interfaces/response.interface';
 
 @Injectable()
-export class ProjectRepository implements ProjectRepositoryInteface {
+export class ProjectRepository implements ProjectRepositoryDb {
   async create(project: Omit<Project, '_id' | 'tasks'>): Promise<void> {
     await ProjectModel.create(project);
   }
@@ -21,18 +21,20 @@ export class ProjectRepository implements ProjectRepositoryInteface {
 
     return {
       items: JSON.parse(JSON.stringify(projects)),
-      quantityItems: projects.length,
+      meta: {
+        quantityItems: projects.length,
+      },
     };
   }
 
   async update(
-    projectId: string,
+    projectId: Project['_id'],
     project: Partial<Omit<Project, '_id'>>,
   ): Promise<void> {
     await ProjectModel.updateOne({ _id: projectId }, project);
   }
 
-  async delete(projectId: string): Promise<void> {
+  async delete(projectId: Project['_id']): Promise<void> {
     await ProjectModel.deleteOne({ _id: projectId });
   }
 }

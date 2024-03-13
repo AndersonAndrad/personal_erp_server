@@ -1,7 +1,7 @@
-import { PaginatedResponse } from '@app/modules/shared/response.interface';
-import { Project } from './project.interface';
+import { Project } from '../interfaces/project.interface';
+import { PaginatedResponse } from '../interfaces/response.interface';
 
-export interface ProjectRepositoryInteface {
+export interface ProjectRepositoryDb {
   /**
    * @param project
    */
