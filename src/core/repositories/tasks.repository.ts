@@ -33,7 +33,9 @@ export class TaskRepository implements TaskRepositoryDb {
     throw new Error('Method not implemented.');
   }
 
-  update(taskId: string, task: Partial<Omit<Task, '_id'>>): Promise<void> {}
+  update(taskId: string, task: Partial<Omit<Task, '_id'>>): Promise<void> {
+    throw new Error('Method not implemented');
+  }
 
   delete(taskId: string): Promise<void> {
     throw new Error('Method not implemented.');
