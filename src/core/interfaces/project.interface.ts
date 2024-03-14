@@ -1,3 +1,5 @@
+import { Paginated } from './paginated-filter.interface';
+
 export interface Project {
   _id: string;
   name: string;
@@ -7,4 +9,9 @@ export interface Project {
    * @Warn save always in cents
    */
   hoursPrice: number;
+}
+
+export interface Filter extends Paginated {
+  status?: boolean[];
+  name?: string;
 }

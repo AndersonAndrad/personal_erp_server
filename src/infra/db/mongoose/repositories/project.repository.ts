@@ -1,13 +1,16 @@
+import { Filter, Project } from '../../../../core/interfaces/project.interface';
+
 import { ProjectModel } from '@app/infra/db/mongoose/schemas/project.schema';
 import { Injectable } from '@nestjs/common';
 import { ProjectRepositoryDb } from '../../../../core/db-repositories/project-repository.interface';
-import { Project } from '../../../../core/interfaces/project.interface';
 import { PaginatedResponse } from '../../../../core/interfaces/response.interface';
 
 @Injectable()
 export class MongooseProjectRepository implements ProjectRepositoryDb {
-  async create(project: Omit<Project, '_id' | 'tasks'>): Promise<void> {
-    await ProjectModel.create(project);
+  async create(project: Omit<Project, '_id' | 'tasks'>): Promise<Project> {
+    const projectCreated = await ProjectModel.create(project);
+
+    return JSON.parse(JSON.stringify(projectCreated));
   }
 
   async findOne(projectId: string): Promise<Project> {
@@ -16,13 +19,21 @@ export class MongooseProjectRepository implements ProjectRepositoryDb {
     return JSON.parse(JSON.stringify(project));
   }
 
-  async findAll(filter: any): Promise<PaginatedResponse<Project>> {
-    const projects = await ProjectModel.find({});
+  async findAll(filter: Filter): Promise<PaginatedResponse<Project>> {
+    let projects = [];
+    let totalCount: number = 0;
+
+    if ('page' in filter && 'size' in filter) {
+      projects = (await ProjectModel.find({})) ?? [];
+    } else {
+      projects = (await ProjectModel.find({})) ?? [];
+      totalCount = projects.length;
+    }
 
     return {
       items: JSON.parse(JSON.stringify(projects)),
       meta: {
-        quantityItems: projects.length,
+        quantityItems: totalCount,
       },
     };
   }
