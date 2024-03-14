@@ -6,7 +6,7 @@ export interface TaskRepositoryDb {
   /**
    * @param task
    */
-  create(task: Omit<Task, '_id' | 'tasks'>): Promise<void>;
+  create(task: Omit<Task, '_id' | 'tasks'>): Promise<Task>;
 
   /**
    * @param taskId

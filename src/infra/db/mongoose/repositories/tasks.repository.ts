@@ -6,6 +6,7 @@ import {
 import { TaskRepositoryDb } from '@app/core/db-repositories/tasks-repository.interface';
 import { Injectable } from '@nestjs/common';
 import { PaginatedResponse } from '../../../../core/interfaces/response.interface';
+import { TasksModel } from '../schemas/tasks.schema';
 
 @Injectable()
 export class MongooseTaskRepository implements TaskRepositoryDb {
@@ -24,16 +25,35 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     throw new Error('Method not implemented.');
   }
 
-  create(task: Omit<Task, '_id' | 'tasks'>): Promise<void> {
-    throw new Error('Method not implemented.');
+  async create(task: Omit<Task, '_id' | 'tasks'>): Promise<Task> {
+    const taskCreated = await TasksModel.create(task);
+
+    return JSON.parse(JSON.stringify(taskCreated));
   }
 
-  findOne(taskId: string): Promise<Task> {
-    throw new Error('Method not implemented.');
+  async findOne(taskId: string): Promise<Task> {
+    const task = await TasksModel.findById(taskId);
+
+    return JSON.parse(JSON.stringify(task));
   }
 
-  findAll(filter: any): Promise<PaginatedResponse<Task>> {
-    throw new Error('Method not implemented.');
+  async findAll(filter: any): Promise<PaginatedResponse<Task>> {
+    let tasks = [];
+    let quantityItems: number = 0;
+
+    if ('page' in filter && 'size' in filter) {
+      tasks = await TasksModel.find({});
+    } else {
+      tasks = await TasksModel.find({});
+      quantityItems = tasks.length;
+    }
+
+    return {
+      items: JSON.parse(JSON.stringify(tasks)),
+      meta: {
+        quantityItems,
+      },
+    };
   }
 
   update(taskId: string, task: Partial<Omit<Task, '_id'>>): Promise<void> {

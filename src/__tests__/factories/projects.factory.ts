@@ -1,6 +1,6 @@
-import { faker } from '@faker-js/faker';
-
 import { Project } from '@app/core/interfaces/project.interface';
+import { faker } from '@faker-js/faker';
+import mongoose from 'mongoose';
 
 export const projectFactory = (): Omit<Project, '_id'> => {
   return {
@@ -8,5 +8,12 @@ export const projectFactory = (): Omit<Project, '_id'> => {
     hoursPrice: faker.number.int({ max: 1000 }),
     name: faker.company.name(),
     tasks: [],
+  };
+};
+
+export const fullProject = (): Project => {
+  return {
+    ...projectFactory(),
+    _id: new mongoose.Types.ObjectId() as any,
   };
 };
