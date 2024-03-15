@@ -1,9 +1,9 @@
-import { Filter, Project } from '../../../../core/interfaces/project.interface';
+import { Filter, Project } from '@app/core/interfaces/project.interface';
 
+import { ProjectRepositoryDb } from '@app/core/db-repositories/project-repository.interface';
+import { PaginatedResponse } from '@app/core/interfaces/response.interface';
 import { ProjectModel } from '@app/infra/db/mongoose/schemas/project.schema';
 import { Injectable } from '@nestjs/common';
-import { ProjectRepositoryDb } from '../../../../core/db-repositories/project-repository.interface';
-import { PaginatedResponse } from '../../../../core/interfaces/response.interface';
 
 @Injectable()
 export class MongooseProjectRepository implements ProjectRepositoryDb {

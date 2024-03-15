@@ -2,6 +2,8 @@ import { Filter, Project } from '../interfaces/project.interface';
 
 import { PaginatedResponse } from '../interfaces/response.interface';
 
+export const ProjectRepositorySymbol = Symbol('projectRepositoryDb');
+
 export interface ProjectRepositoryDb {
   /**
    * @param project
