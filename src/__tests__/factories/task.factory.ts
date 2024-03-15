@@ -1,4 +1,5 @@
-import { Task } from '@app/core/interfaces/tasks.interface';
+import { Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
+
 import { faker } from '@faker-js/faker';
 import { fullProject } from './projects.factory';
 
@@ -11,5 +12,11 @@ export const taskFactory = (): Omit<Task, '_id'> => {
     finished: faker.datatype.boolean(),
     paused: faker.datatype.boolean(),
     notations: [],
+  };
+};
+
+export const notationFactory = (): Omit<TaskNotation, '_id'> => {
+  return {
+    notation: faker.company.catchPhrase(),
   };
 };

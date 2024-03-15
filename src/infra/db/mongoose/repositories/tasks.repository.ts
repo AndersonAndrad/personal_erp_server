@@ -10,19 +10,24 @@ import { TasksModel } from '../schemas/tasks.schema';
 
 @Injectable()
 export class MongooseTaskRepository implements TaskRepositoryDb {
-  finishTask(taskId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async finishTask(taskId: string): Promise<void> {
+    await this.update(taskId, { finished: true, finish: new Date() });
   }
 
-  addNotation(
+  async addNotation(
     taskId: string,
     notation: Pick<TaskNotation, 'notation'>,
   ): Promise<void> {
-    throw new Error('Method not implemented.');
+    await TasksModel.updateOne(
+      { _id: taskId },
+      { $push: { notations: { $each: [notation] } } },
+    );
   }
 
-  toggleStatusPause(taskId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async toggleStatusPause(taskId: string): Promise<void> {
+    const task = await this.findOne(taskId);
+
+    await this.update(taskId, { paused: !task.paused });
   }
 
   async create(task: Omit<Task, '_id' | 'tasks'>): Promise<Task> {
@@ -56,11 +61,14 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     };
   }
 
-  update(taskId: string, task: Partial<Omit<Task, '_id'>>): Promise<void> {
-    throw new Error('Method not implemented');
+  async update(
+    taskId: string,
+    task: Partial<Omit<Task, '_id'>>,
+  ): Promise<void> {
+    await TasksModel.updateOne({ _id: taskId }, task);
   }
 
-  delete(taskId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(taskId: string): Promise<void> {
+    await TasksModel.deleteOne({ _id: taskId });
   }
 }

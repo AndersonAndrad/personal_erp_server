@@ -1,8 +1,9 @@
+import { notationFactory, taskFactory } from '../factories/task.factory';
+
 import { TaskRepositoryDb } from '@app/core/db-repositories/tasks-repository.interface';
 import { MongoInMemory } from '@app/infra/db/mongoose/mongo-memory/mongo-memory.service';
 import { MongooseTaskRepository } from '@app/infra/db/mongoose/repositories/tasks.repository';
 import { faker } from '@faker-js/faker';
-import { taskFactory } from '../factories/task.factory';
 
 describe(`${MongooseTaskRepository.name}`, () => {
   let repository: TaskRepositoryDb;
@@ -62,5 +63,70 @@ describe(`${MongooseTaskRepository.name}`, () => {
     expect(items).toHaveLength(randomNumber);
 
     expect(meta.quantityItems).toBe(randomNumber);
+  });
+
+  it('Should update a task with success', async () => {
+    let task = await repository.create(taskFactory());
+
+    const name: string = faker.person.fullName();
+
+    await repository.update(task._id, { name });
+
+    task = await repository.findOne(task._id);
+
+    expect(task.name).toBe(name);
+  });
+
+  it('Should delete a task with sucess', async () => {
+    const task = await repository.create(taskFactory());
+
+    await repository.delete(task._id);
+
+    const { items } = await repository.findAll({});
+
+    expect(items).toHaveLength(0);
+  });
+
+  it('Should toggle task status', async () => {
+    let task = await repository.create(taskFactory());
+
+    const statusBeforeChange: boolean = task.paused;
+
+    await repository.toggleStatusPause(task._id);
+
+    task = await repository.findOne(task._id);
+
+    const statusAfterChange: boolean = task.paused;
+
+    expect(statusBeforeChange).not.toBe(statusAfterChange);
+  });
+
+  it('Should add notation in task', async () => {
+    let task = await repository.create(taskFactory());
+    const { notation } = notationFactory();
+
+    await repository.addNotation(task._id, { notation });
+
+    task = await repository.findOne(task._id);
+
+    expect(
+      task.notations.some(
+        ({ notation: taskNotaiton }) => taskNotaiton === notation,
+      ),
+    ).toBeTruthy();
+  });
+
+  it('Should finish task with success', async () => {
+    let task = await repository.create(taskFactory());
+
+    await repository.finishTask(task._id);
+
+    task = await repository.findOne(task._id);
+
+    expect(task.finished).toBeTruthy();
+
+    const today = new Date().getDate();
+
+    expect(new Date(task.finish).getDate()).toBe(today);
   });
 });
