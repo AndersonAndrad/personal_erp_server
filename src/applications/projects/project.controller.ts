@@ -3,7 +3,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestj
 import { CreateProjectDto } from '@app/core/dto/projects/create-projects.dto';
 import { UpdateProjectDto } from '@app/core/dto/projects/update-projects.dto';
 import { Filter, Project } from '@app/core/interfaces/project.interface';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ProjectService } from './services/projects.service';
 
 @ApiTags('Project')
@@ -24,6 +24,7 @@ export class ProjectController {
   }
 
   @Get(':projectId')
+  @ApiParam({ name: 'projectId' })
   @ApiOperation({ summary: 'Get project by id' })
   findOne(@Param('projectId') projectId: Project['_id']) {
     return this.projectService.findOne(projectId);
@@ -31,11 +32,13 @@ export class ProjectController {
 
   @Patch(':projectId')
   @ApiOperation({ summary: 'Update project parts' })
+  @ApiParam({ name: 'projectId' })
   update(@Param('projectId') projectId: Project['_id'], @Body() project: UpdateProjectDto) {
     return this.projectService.update(projectId, project);
   }
 
   @Delete(':projectId')
+  @ApiParam({ name: 'projectId' })
   @ApiOperation({ summary: 'Delete a project' })
   delete(@Param('projectId') projectId: Project['_id']) {
     return this.projectService.delete(projectId);
