@@ -30,7 +30,8 @@
     "mongodb-memory-server": "^9.1.7",
     "mongoose": "^8.2.1",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

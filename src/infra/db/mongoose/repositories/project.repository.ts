@@ -7,7 +7,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class MongooseProjectRepository implements ProjectRepositoryDb {
-  async create(project: Omit<Project, '_id' | 'tasks'>): Promise<Project> {
+  async create(
+    project: Omit<Project, '_id' | 'tasks' | 'enabled'>,
+  ): Promise<Project> {
     const projectCreated = await ProjectModel.create(project);
 
     return JSON.parse(JSON.stringify(projectCreated));

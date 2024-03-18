@@ -8,7 +8,7 @@ export interface ProjectRepositoryDb {
   /**
    * @param project
    */
-  create(project: Omit<Project, '_id' | 'tasks'>): Promise<Project>;
+  create(project: Omit<Project, '_id' | 'tasks' | 'enabled'>): Promise<Project>;
 
   /**
    * @param projectId
