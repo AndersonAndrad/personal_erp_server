@@ -5,6 +5,8 @@ import { PaginatedResponse } from '@app/core/interfaces/response.interface';
 import { Injectable } from '@nestjs/common';
 import { TasksModel } from '../schemas/tasks.schema';
 
+export const TaskRepositorySymbol = Symbol('taskRepositoryDb');
+
 @Injectable()
 export class MongooseTaskRepository implements TaskRepositoryDb {
   async finishTask(taskId: string): Promise<void> {
@@ -21,7 +23,7 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     await this.update(taskId, { paused: !task.paused });
   }
 
-  async create(task: Omit<Task, '_id' | 'tasks'>): Promise<Task> {
+  async create(task: Omit<Task, '_id' | 'notation'>): Promise<Task> {
     const taskCreated = await TasksModel.create(task);
 
     return JSON.parse(JSON.stringify(taskCreated));
