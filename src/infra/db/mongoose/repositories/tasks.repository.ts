@@ -1,11 +1,8 @@
-import {
-  Task,
-  TaskNotation,
-} from '../../../../core/interfaces/tasks.interface';
+import { Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
 
 import { TaskRepositoryDb } from '@app/core/db-repositories/tasks-repository.interface';
+import { PaginatedResponse } from '@app/core/interfaces/response.interface';
 import { Injectable } from '@nestjs/common';
-import { PaginatedResponse } from '../../../../core/interfaces/response.interface';
 import { TasksModel } from '../schemas/tasks.schema';
 
 @Injectable()
@@ -14,14 +11,8 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     await this.update(taskId, { finished: true, finish: new Date() });
   }
 
-  async addNotation(
-    taskId: string,
-    notation: Pick<TaskNotation, 'notation'>,
-  ): Promise<void> {
-    await TasksModel.updateOne(
-      { _id: taskId },
-      { $push: { notations: { $each: [notation] } } },
-    );
+  async addNotation(taskId: string, notation: Pick<TaskNotation, 'notation'>): Promise<void> {
+    await TasksModel.updateOne({ _id: taskId }, { $push: { notations: { $each: [notation] } } });
   }
 
   async toggleStatusPause(taskId: string): Promise<void> {
@@ -61,10 +52,7 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     };
   }
 
-  async update(
-    taskId: string,
-    task: Partial<Omit<Task, '_id'>>,
-  ): Promise<void> {
+  async update(taskId: string, task: Partial<Omit<Task, '_id'>>): Promise<void> {
     await TasksModel.updateOne({ _id: taskId }, task);
   }
 

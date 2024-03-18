@@ -1,6 +1,6 @@
 import { Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
-import mongoose from 'mongoose';
 
+import mongoose from 'mongoose';
 import { ProjectSchema } from './project.schema';
 
 const NotationSchema = new mongoose.Schema<TaskNotation>({
@@ -18,7 +18,4 @@ export const TasksSchema = new mongoose.Schema<Task>({
   start: { type: Date, default: new Date() },
 });
 
-export const TasksModel: mongoose.Model<Task> = mongoose.model(
-  'tasks',
-  TasksSchema,
-);
+export const TasksModel: mongoose.Model<Task> = mongoose.model('tasks', TasksSchema);

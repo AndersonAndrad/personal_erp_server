@@ -7,7 +7,4 @@ export const ProjectSchema = new mongoose.Schema<Project>({
   hoursPrice: { type: Number, default: 0 },
 });
 
-export const ProjectModel: mongoose.Model<Project> = mongoose.model(
-  'projects',
-  ProjectSchema,
-);
+export const ProjectModel: mongoose.Model<Project> = mongoose.model('projects', ProjectSchema);
