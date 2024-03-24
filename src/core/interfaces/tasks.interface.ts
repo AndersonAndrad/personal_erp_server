@@ -17,4 +17,6 @@ export interface TaskNotation {
   notation: string;
 }
 
-export interface Filter {}
+export interface Filter {
+  projectIds?: Project['_id'][];
+}

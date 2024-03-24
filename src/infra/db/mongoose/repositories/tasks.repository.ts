@@ -1,4 +1,4 @@
-import { Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
+import { Filter, Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
 
 import { TaskRepositoryDb } from '@app/core/db-repositories/tasks-repository.interface';
 import { PaginatedResponse } from '@app/core/interfaces/response.interface';
@@ -45,14 +45,19 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     return JSON.parse(JSON.stringify(task));
   }
 
-  async findAll(filter: any): Promise<PaginatedResponse<Task>> {
+  async findAll(filter: Filter): Promise<PaginatedResponse<Task>> {
     let tasks = [];
     let quantityItems: number = 0;
+    const query = {};
+
+    if ('projectIds' in filter) {
+      query['project._id'] = { $in: filter.projectIds };
+    }
 
     if ('page' in filter && 'size' in filter) {
-      tasks = await TasksModel.find({});
+      tasks = await TasksModel.find(query);
     } else {
-      tasks = await TasksModel.find({});
+      tasks = await TasksModel.find(query);
       quantityItems = tasks.length;
     }
 

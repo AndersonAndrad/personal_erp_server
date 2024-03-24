@@ -1,4 +1,4 @@
-import { Task, TaskNotation } from '../interfaces/tasks.interface';
+import { Filter, Task, TaskNotation } from '../interfaces/tasks.interface';
 
 import { PaginatedResponse } from '../interfaces/response.interface';
 
@@ -14,10 +14,9 @@ export interface TaskRepositoryDb {
   findOne(taskId: Task['_id']): Promise<Task>;
 
   /**
-   * @TODO implement filter interface
    * @param filter
    */
-  findAll(filter: any): Promise<PaginatedResponse<Task>>;
+  findAll(filter: Filter): Promise<PaginatedResponse<Task>>;
 
   /**
    * @param task

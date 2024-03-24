@@ -1,7 +1,8 @@
 import { AddNotationDto } from '@app/core/dto/tasks/add-notation.dto';
 import { CreateTaskDto } from '@app/core/dto/tasks/create-tasks.dto';
+import { FilterTasksDto } from '@app/core/dto/tasks/filter-tasks.dto';
 import { UpdateTaskDto } from '@app/core/dto/tasks/update-tasks.dto';
-import { Filter, Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
+import { Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { TaskService } from './services/tasks.service';
@@ -19,7 +20,7 @@ export class TaskController {
 
   @Get('')
   @ApiOperation({ description: 'Find all tasks' })
-  findAll(@Query() filter: Filter) {
+  findAll(@Query() filter: FilterTasksDto) {
     return this.taskService.findAll(filter);
   }
 
