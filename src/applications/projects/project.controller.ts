@@ -31,7 +31,7 @@ export class ProjectController {
   }
 
   @Patch(':projectId')
-  @ApiOperation({ summary: 'Update project parts' })
+  @ApiOperation({ summary: 'Update parts projects' })
   @ApiParam({ name: 'projectId' })
   update(@Param('projectId') projectId: Project['_id'], @Body() project: UpdateProjectDto) {
     return this.projectService.update(projectId, project);
@@ -39,7 +39,7 @@ export class ProjectController {
 
   @Delete(':projectId')
   @ApiParam({ name: 'projectId' })
-  @ApiOperation({ summary: 'Delete a project' })
+  @ApiOperation({ summary: 'Delete a project by id' })
   delete(@Param('projectId') projectId: Project['_id']) {
     return this.projectService.delete(projectId);
   }

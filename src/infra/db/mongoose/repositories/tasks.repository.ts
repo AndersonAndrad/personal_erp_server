@@ -14,7 +14,7 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
   }
 
   async addNotation(taskId: string, notation: Pick<TaskNotation, 'notation'>): Promise<void> {
-    await TasksModel.updateOne({ _id: taskId }, { $push: { notations: { $each: [notation] } } });
+    await TasksModel.updateOne({ _id: taskId }, { $push: { notations: { $each: [notation], $position: 0 } } });
   }
 
   async toggleStatusPause(taskId: string): Promise<void> {

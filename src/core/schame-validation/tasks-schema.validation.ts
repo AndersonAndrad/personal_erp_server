@@ -4,40 +4,11 @@ import { Task, TaskNotation } from '../interfaces/tasks.interface';
 import { BadRequestException } from '@nestjs/common';
 
 export class TasksSchemaValidator {
-  private createTasksValidateSchema = z.object({
-    name: z.string().min(3),
-    description: z.string().min(3),
-    project: z.object({
-      _id: z.string().min(24),
-      name: z.string().min(3),
-      hoursPrice: z.number().int(),
-    }),
-    start: z.date(),
-    finish: z.date().optional(),
-    finished: z.boolean(),
-    paused: z.boolean(),
-  });
-
-  private updateTasksValidateSchema = z.object({
-    name: z.string().min(3).optional(),
-    description: z.string().min(3).optional(),
-    project: z
-      .object({
-        _id: z.string().min(24).optional(),
-        name: z.string().min(3).optional(),
-        hoursPrice: z.number().int().optional(),
-      })
-      .optional(),
-    finish: z.date().optional().optional(),
-    finished: z.boolean().optional(),
-    paused: z.boolean().optional(),
-  });
-
   private validateSchemaId = z.string().length(24);
 
-  idProjectValidate(projectId: Task['_id']) {
+  idProjectValidate(taskId: Task['_id']) {
     try {
-      this.validateSchemaId.parse(projectId);
+      this.validateSchemaId.parse(taskId);
     } catch (error) {
       if (error instanceof ZodError) {
         throw new BadRequestException(JSON.parse(error.message));
@@ -46,9 +17,19 @@ export class TasksSchemaValidator {
     }
   }
 
-  createTasksValidate(task: Omit<Task, '_id' | 'notation'>) {
+  createTasksValidate(task: Pick<Task, 'name' | 'description' | 'project'>) {
     try {
-      this.createTasksValidateSchema.parse(task);
+      const createTasksValidateSchema = z.object({
+        name: z.string().min(3),
+        description: z.string().min(3),
+        project: z.object({
+          _id: z.string().min(24),
+          name: z.string().min(3),
+          hoursPrice: z.number().int(),
+        }),
+      });
+
+      createTasksValidateSchema.parse(task);
     } catch (error) {
       if (error instanceof ZodError) {
         throw new BadRequestException(JSON.parse(error.message));
@@ -59,7 +40,22 @@ export class TasksSchemaValidator {
 
   updateTasksValidate(task: Partial<Omit<Task, 'start'>>) {
     try {
-      this.updateTasksValidateSchema.parse(task);
+      const updateTasksValidateSchema = z.object({
+        name: z.string().min(3).optional(),
+        description: z.string().min(3).optional(),
+        project: z
+          .object({
+            _id: z.string().min(24).optional(),
+            name: z.string().min(3).optional(),
+            hoursPrice: z.number().int().optional(),
+          })
+          .optional(),
+        finish: z.date().optional().optional(),
+        finished: z.boolean().optional(),
+        paused: z.boolean().optional(),
+      });
+
+      updateTasksValidateSchema.parse(task);
     } catch (error) {
       if (error instanceof ZodError) {
         throw new BadRequestException(JSON.parse(error.message));
@@ -68,12 +64,14 @@ export class TasksSchemaValidator {
     }
   }
 
-  addNotationValidate(taskId: Task['_id'], notation: Pick<TaskNotation, 'notation'>) {
-    const schema = z.string().min(3);
-
+  addNotationValidate(taskId: Task['_id'], notationObject: Pick<TaskNotation, 'notation'>) {
     try {
-      this.validateSchemaId.parse(taskId);
-      schema.parse(notation);
+      const notationSchema = z.object({
+        notation: z.string().min(3),
+      });
+
+      this.idProjectValidate(taskId);
+      notationSchema.parse(notationObject);
     } catch (error) {
       if (error instanceof ZodError) {
         throw new BadRequestException(JSON.parse(error.message));

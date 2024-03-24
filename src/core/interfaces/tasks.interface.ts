@@ -4,7 +4,7 @@ export interface Task {
   _id: string;
   name: string;
   description: string;
-  project: Omit<Project, 'enable' | 'tasks'>;
+  project: Omit<Project, 'enabled' | 'tasks'>;
   start: Date;
   finish?: Date;
   finished: boolean;
@@ -16,3 +16,5 @@ export interface TaskNotation {
   _id: string;
   notation: string;
 }
+
+export interface Filter {}

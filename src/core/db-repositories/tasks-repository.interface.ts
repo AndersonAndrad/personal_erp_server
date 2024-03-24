@@ -6,7 +6,7 @@ export interface TaskRepositoryDb {
   /**
    * @param task
    */
-  create(task: Omit<Task, '_id' | 'tasks'>): Promise<Task>;
+  create(task: Pick<Task, 'name' | 'description' | 'project'>): Promise<Task>;
 
   /**
    * @param taskId
@@ -39,10 +39,7 @@ export interface TaskRepositoryDb {
    * @param notation
    * @param taskId
    */
-  addNotation(
-    taskId: Task['_id'],
-    notation: Pick<TaskNotation, 'notation'>,
-  ): Promise<void>;
+  addNotation(taskId: Task['_id'], notation: Pick<TaskNotation, 'notation'>): Promise<void>;
 
   /**
    * @param taskId
