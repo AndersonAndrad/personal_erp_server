@@ -64,4 +64,8 @@ export class TaskService {
 
     await this.taskRepostiory.deleteNotation(taskId, notationId);
   }
+
+  async getNotationsByTask(taskId: Task['_id']): Promise<TaskNotation[]> {
+    return this.taskRepostiory.getNotationsByTask(taskId);
+  }
 }

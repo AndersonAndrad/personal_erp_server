@@ -50,4 +50,9 @@ export interface TaskRepositoryDb {
    * @param taskId
    */
   deleteNotation(taskId: Task['_id'], notationId: TaskNotation['_id']): Promise<void>;
+
+  /**
+   * @param taskId
+   */
+  getNotationsByTask(taskId: Task['_id']): Promise<TaskNotation[]>;
 }

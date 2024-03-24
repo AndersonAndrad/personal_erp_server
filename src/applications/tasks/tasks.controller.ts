@@ -39,6 +39,13 @@ export class TaskController {
     return this.taskService.deleteNotation(taskId, notationId);
   }
 
+  @Get(':taskId/notations')
+  @ApiParam({ name: 'taskId' })
+  @ApiOperation({ description: 'Get all notations by task id' })
+  getNotationsByTask(@Param('taskId') taskId: Task['_id']) {
+    return this.taskService.getNotationsByTask(taskId);
+  }
+
   @Delete(':taskId')
   @ApiParam({ name: 'taskId' })
   @ApiOperation({ description: 'Delete only one task by Id' })
