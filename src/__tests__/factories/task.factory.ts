@@ -12,6 +12,7 @@ export const taskFactory = (): Omit<Task, '_id'> => {
     finished: faker.datatype.boolean(),
     paused: faker.datatype.boolean(),
     notations: [],
+    pauses: [],
   };
 };
 

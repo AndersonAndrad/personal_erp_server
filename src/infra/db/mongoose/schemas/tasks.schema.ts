@@ -1,10 +1,15 @@
-import { Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
+import { Pause, Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
 
 import mongoose from 'mongoose';
 import { ProjectSchema } from './project.schema';
 
 const NotationSchema = new mongoose.Schema<TaskNotation>({
   notation: { type: String, required: true },
+});
+
+const PauseSchema = new mongoose.Schema<Pause>({
+  end: { type: Date },
+  start: { type: Date, required: true },
 });
 
 export const TasksSchema = new mongoose.Schema<Task>({
@@ -16,6 +21,7 @@ export const TasksSchema = new mongoose.Schema<Task>({
   paused: { type: Boolean, default: false },
   project: { type: ProjectSchema },
   start: { type: Date, default: new Date() },
+  pauses: { type: [PauseSchema] },
 });
 
 export const TasksModel: mongoose.Model<Task> = mongoose.model('tasks', TasksSchema);

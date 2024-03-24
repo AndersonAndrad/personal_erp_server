@@ -43,7 +43,7 @@ export class TaskService {
   async toggleStatusPause(taskId: Task['_id']): Promise<void> {
     this.taskSchemaValidator.idEntityValidate(taskId);
 
-    await this.taskRepostiory.toggleStatusPause(taskId);
+    await this.taskRepostiory.pause(taskId);
   }
 
   async addNotation(taskId: Task['_id'], notation: Pick<TaskNotation, 'notation'>): Promise<void> {
@@ -67,5 +67,9 @@ export class TaskService {
 
   async getNotationsByTask(taskId: Task['_id']): Promise<TaskNotation[]> {
     return this.taskRepostiory.getNotationsByTask(taskId);
+  }
+
+  async pause(taskId: Task['_id']): Promise<void> {
+    return this.taskRepostiory.pause(taskId);
   }
 }

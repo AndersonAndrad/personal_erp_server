@@ -55,4 +55,9 @@ export interface TaskRepositoryDb {
    * @param taskId
    */
   getNotationsByTask(taskId: Task['_id']): Promise<TaskNotation[]>;
+
+  /**
+   *  @param taskId
+   */
+  pause(taskId: Task['_id']): Promise<void>;
 }

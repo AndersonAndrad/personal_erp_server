@@ -1,4 +1,4 @@
-import { Filter, Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
+import { Filter, Pause, Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
 
 import { TaskRepositoryDb } from '@app/core/db-repositories/tasks-repository.interface';
 import { PaginatedResponse } from '@app/core/interfaces/response.interface';
@@ -9,6 +9,29 @@ export const TaskRepositorySymbol = Symbol('taskRepositoryDb');
 
 @Injectable()
 export class MongooseTaskRepository implements TaskRepositoryDb {
+  async pause(taskId: string): Promise<void> {
+    const task = await TasksModel.findOne({ _id: taskId });
+
+    if (!task) {
+      throw new Error(`Task with ID ${taskId} not found`);
+    }
+
+    const result: Omit<Pause, '_id'> = { start: new Date() };
+
+    const firstPaused = task.pauses[0];
+    if (firstPaused?.start) {
+      result.start = new Date(firstPaused.start);
+    }
+
+    if (!task.paused) {
+      await TasksModel.updateOne({ _id: taskId }, { $push: { pauses: { $each: [result], $position: 0 } }, paused: !task.paused });
+    } else if (!firstPaused.end) {
+      task.pauses[0]['end'] = new Date();
+      task.paused = !task.paused;
+      await task.save();
+    }
+  }
+
   async getNotationsByTask(taskId: string): Promise<TaskNotation[]> {
     const task = await TasksModel.findOne({ _id: taskId });
 

@@ -10,11 +10,18 @@ export interface Task {
   finished: boolean;
   paused: boolean;
   notations: TaskNotation[];
+  pauses: Pause[];
 }
 
 export interface TaskNotation {
   _id: string;
   notation: string;
+}
+
+export interface Pause {
+  _id: string;
+  start: Date;
+  end?: Date;
 }
 
 export interface Filter {

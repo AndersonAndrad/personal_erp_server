@@ -109,11 +109,7 @@ describe(`${MongooseTaskRepository.name}`, () => {
 
     task = await repository.findOne(task._id);
 
-    expect(
-      task.notations.some(
-        ({ notation: taskNotaiton }) => taskNotaiton === notation,
-      ),
-    ).toBeTruthy();
+    expect(task.notations.some(({ notation: taskNotaiton }) => taskNotaiton === notation)).toBeTruthy();
   });
 
   it('Should finish task with success', async () => {
