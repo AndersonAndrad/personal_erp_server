@@ -50,7 +50,7 @@ export class TasksSchemaValidator {
             hoursPrice: z.number().int().optional(),
           })
           .optional(),
-        finish: z.date().optional().optional(),
+        finish: z.string().optional(),
         finished: z.boolean().optional(),
         paused: z.boolean().optional(),
       });
