@@ -1,7 +1,7 @@
 import { AddNotationDto } from '@app/core/dto/tasks/add-notation.dto';
 import { CreateTaskDto } from '@app/core/dto/tasks/create-tasks.dto';
 import { UpdateTaskDto } from '@app/core/dto/tasks/update-tasks.dto';
-import { Filter, Task } from '@app/core/interfaces/tasks.interface';
+import { Filter, Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { TaskService } from './services/tasks.service';
@@ -28,6 +28,14 @@ export class TaskController {
   @ApiOperation({ description: 'Find only one task by id' })
   findOne(@Param('taskId') taskId: Task['_id']): Promise<Task> {
     return this.taskService.findOne(taskId);
+  }
+
+  @Get(':taskId/:notationId/delete-notation')
+  @ApiParam({ name: 'taskId' })
+  @ApiParam({ name: 'notationId' })
+  @ApiOperation({ description: 'Find only one task by id' })
+  deleteNotation(@Param('taskId') taskId: Task['_id'], @Param('notationId') notationId: TaskNotation['_id']): Promise<void> {
+    return this.taskService.deleteNotation(taskId, notationId);
   }
 
   @Delete(':taskId')

@@ -19,7 +19,7 @@ export class TaskService {
   }
 
   async findOne(taskId: Task['_id']): Promise<Task> {
-    this.taskSchemaValidator.idProjectValidate(taskId);
+    this.taskSchemaValidator.idEntityValidate(taskId);
 
     return await this.taskRepostiory.findOne(taskId);
   }
@@ -35,13 +35,13 @@ export class TaskService {
   }
 
   async delete(taskId: Task['_id']): Promise<void> {
-    this.taskSchemaValidator.idProjectValidate(taskId);
+    this.taskSchemaValidator.idEntityValidate(taskId);
 
     await this.taskRepostiory.delete(taskId);
   }
 
   async toggleStatusPause(taskId: Task['_id']): Promise<void> {
-    this.taskSchemaValidator.idProjectValidate(taskId);
+    this.taskSchemaValidator.idEntityValidate(taskId);
 
     await this.taskRepostiory.toggleStatusPause(taskId);
   }
@@ -53,8 +53,15 @@ export class TaskService {
   }
 
   async finishTask(taskId: Task['_id']): Promise<void> {
-    this.taskSchemaValidator.idProjectValidate(taskId);
+    this.taskSchemaValidator.idEntityValidate(taskId);
 
     await this.taskRepostiory.finishTask(taskId);
+  }
+
+  async deleteNotation(taskId: Task['_id'], notationId: TaskNotation['_id']): Promise<void> {
+    this.taskSchemaValidator.idEntityValidate(taskId);
+    this.taskSchemaValidator.idEntityValidate(notationId);
+
+    await this.taskRepostiory.deleteNotation(taskId, notationId);
   }
 }

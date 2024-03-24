@@ -9,6 +9,16 @@ export const TaskRepositorySymbol = Symbol('taskRepositoryDb');
 
 @Injectable()
 export class MongooseTaskRepository implements TaskRepositoryDb {
+  async deleteNotation(taskId: string, notationId: string): Promise<void> {
+    let task = await TasksModel.findOne({ _id: taskId });
+
+    task = JSON.parse(JSON.stringify(task));
+
+    task.notations = task.notations.filter((notation) => notation._id !== notationId);
+
+    await this.update(taskId, { notations: task.notations });
+  }
+
   async finishTask(taskId: string): Promise<void> {
     await this.update(taskId, { finished: true, finish: new Date() });
   }

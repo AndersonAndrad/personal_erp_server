@@ -45,4 +45,10 @@ export interface TaskRepositoryDb {
    * @param taskId
    */
   toggleStatusPause(taskId: Task['_id']): Promise<void>;
+
+  /**
+   * @param notationId
+   * @param taskId
+   */
+  deleteNotation(taskId: Task['_id'], notationId: TaskNotation['_id']): Promise<void>;
 }

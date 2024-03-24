@@ -6,7 +6,7 @@ import { BadRequestException } from '@nestjs/common';
 export class TasksSchemaValidator {
   private validateSchemaId = z.string().length(24);
 
-  idProjectValidate(taskId: Task['_id']) {
+  idEntityValidate(taskId: Task['_id']) {
     try {
       this.validateSchemaId.parse(taskId);
     } catch (error) {
@@ -70,7 +70,7 @@ export class TasksSchemaValidator {
         notation: z.string().min(3),
       });
 
-      this.idProjectValidate(taskId);
+      this.idEntityValidate(taskId);
       notationSchema.parse(notationObject);
     } catch (error) {
       if (error instanceof ZodError) {
