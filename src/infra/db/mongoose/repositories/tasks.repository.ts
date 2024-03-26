@@ -63,7 +63,8 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
   }
 
   async create(task: Omit<Task, '_id' | 'notation'>): Promise<Task> {
-    const taskCreated = await TasksModel.create(task);
+    const utcDate = new Date(new Date().toUTCString());
+    const taskCreated = await TasksModel.create({ ...task, date: utcDate });
 
     return JSON.parse(JSON.stringify(taskCreated));
   }
