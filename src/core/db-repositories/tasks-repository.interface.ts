@@ -6,7 +6,7 @@ export interface TaskRepositoryDb {
   /**
    * @param task
    */
-  create(task: Pick<Task, 'name' | 'description' | 'project'>): Promise<Task>;
+  create(task: Pick<Task, 'name' | 'description' | 'project' | 'start'>): Promise<Task>;
 
   /**
    * @param taskId

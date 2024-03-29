@@ -15,7 +15,7 @@ export class TaskService {
   async create(task: Pick<Task, 'name' | 'description' | 'project'>): Promise<Task> {
     this.taskSchemaValidator.createTasksValidate(task);
 
-    return await this.taskRepostiory.create(task);
+    return await this.taskRepostiory.create({ ...task, start: new Date() });
   }
 
   async findOne(taskId: Task['_id']): Promise<Task> {
