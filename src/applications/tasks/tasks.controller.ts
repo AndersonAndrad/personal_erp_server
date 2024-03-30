@@ -46,6 +46,13 @@ export class TaskController {
     return this.taskService.getNotationsByTask(taskId);
   }
 
+  @Get(':taskId/start-task')
+  @ApiParam({ name: 'taskId' })
+  @ApiOperation({ description: 'Start a scheduled task' })
+  startTask(@Param('taskId') taskId: Task['_id']) {
+    return this.taskService.startTask(taskId);
+  }
+
   @Delete(':taskId')
   @ApiParam({ name: 'taskId' })
   @ApiOperation({ description: 'Delete only one task by Id' })

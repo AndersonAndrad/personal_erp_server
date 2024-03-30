@@ -78,4 +78,8 @@ export class TaskService {
   async pause(taskId: Task['_id']): Promise<void> {
     return this.taskRepostiory.pause(taskId);
   }
+
+  async startTask(taskId: Task['_id']): Promise<void> {
+    return this.update(taskId, { start: new Date(), scheduled: false });
+  }
 }
