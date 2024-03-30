@@ -1,4 +1,4 @@
-import { MongooseTaskRepository, TaskRepositorySymbol } from '@app/infra/db/mongoose/repositories/tasks.repository';
+import { MongooseTaskRepository, TaskRepositorySymbol } from '@app/infra/db/mongoose/repositories/mongoose-tasks.repository';
 
 import { TasksSchemaValidator } from '@app/core/schame-validation/tasks-schema.validation';
 import { Module } from '@nestjs/common';

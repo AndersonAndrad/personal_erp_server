@@ -2,7 +2,7 @@ import { notationFactory, taskFactory } from '../factories/task.factory';
 
 import { TaskRepositoryDb } from '@app/core/db-repositories/tasks-repository.interface';
 import { MongoInMemory } from '@app/infra/db/mongoose/mongo-memory/mongo-memory.service';
-import { MongooseTaskRepository } from '@app/infra/db/mongoose/repositories/tasks.repository';
+import { MongooseTaskRepository } from '@app/infra/db/mongoose/repositories/mongoose-tasks.repository';
 import { faker } from '@faker-js/faker';
 
 describe(`${MongooseTaskRepository.name}`, () => {

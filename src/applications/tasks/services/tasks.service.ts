@@ -2,7 +2,7 @@ import { TaskRepositoryDb } from '@app/core/db-repositories/tasks-repository.int
 import { PaginatedResponse } from '@app/core/interfaces/response.interface';
 import { Filter, Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
 import { TasksSchemaValidator } from '@app/core/schame-validation/tasks-schema.validation';
-import { TaskRepositorySymbol } from '@app/infra/db/mongoose/repositories/tasks.repository';
+import { TaskRepositorySymbol } from '@app/infra/db/mongoose/repositories/mongoose-tasks.repository';
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -12,10 +12,16 @@ export class TaskService {
     private readonly taskSchemaValidator: TasksSchemaValidator,
   ) {}
 
-  async create(task: Pick<Task, 'name' | 'description' | 'project'>): Promise<Task> {
+  async create(task: Pick<Task, 'name' | 'description' | 'project' | 'scheduled'>): Promise<Task> {
     this.taskSchemaValidator.createTasksValidate(task);
 
-    return await this.taskRepostiory.create({ ...task, start: new Date() });
+    if (!task.scheduled) {
+      task['start'] = new Date();
+    }
+
+    console.log({ task });
+
+    return await this.taskRepostiory.create(task);
   }
 
   async findOne(taskId: Task['_id']): Promise<Task> {

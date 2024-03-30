@@ -105,6 +105,10 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
       query['start'] = { $gte: start, $lt: finish };
     }
 
+    if ('scheduled' in filter) {
+      query['scheduled'] = filter.scheduled;
+    }
+
     if ('page' in filter && 'size' in filter) {
       tasks = await TasksModel.find(query);
     } else {

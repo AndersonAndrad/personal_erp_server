@@ -1,6 +1,7 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 import { Project } from '@app/core/interfaces/project.interface';
 import { Task } from '@app/core/interfaces/tasks.interface';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTaskDto implements Pick<Task, 'name' | 'description' | 'project'> {
   @ApiProperty({})
@@ -11,4 +12,7 @@ export class CreateTaskDto implements Pick<Task, 'name' | 'description' | 'proje
 
   @ApiProperty({})
   project: Omit<Project, 'tasks' | 'enabled'>;
+
+  @ApiProperty({})
+  scheduled: boolean;
 }
