@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CategoryModule } from './applications/category/category.module';
+import { ConfigModule } from '@nestjs/config';
+import { Module } from '@nestjs/common';
+import { MongooseModuleConfiguration } from './infra/db/mongoose/mongoose.module';
 import { ProjectModule } from './applications/projects/project.module';
 import { TaskModule } from './applications/tasks/tasks.module';
-import { MongooseModuleConfiguration } from './infra/db/mongoose/mongoose.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { MongooseModuleConfiguration } from './infra/db/mongoose/mongoose.module
     // application modueles
     ProjectModule,
     TaskModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
