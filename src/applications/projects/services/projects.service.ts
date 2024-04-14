@@ -25,8 +25,6 @@ export class ProjectService {
   async findOne(projectId: Project['_id']): Promise<Project> {
     this.projectSchemaValidator.idProjectValidate(projectId);
 
-    console.log('passed');
-
     return await this.projectRepository.findOne(projectId);
   }
 

@@ -19,8 +19,6 @@ export class TaskService {
       task['start'] = new Date();
     }
 
-    console.log({ task });
-
     return await this.taskRepostiory.create(task);
   }
 
