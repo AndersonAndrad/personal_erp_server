@@ -110,9 +110,9 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     }
 
     if ('page' in filter && 'size' in filter) {
-      tasks = await TasksModel.find(query);
+      tasks = await TasksModel.find({ $or: [query, { paused: { $in: [true, false] }, finished: false, ['project._id']: { $in: filter.projectIds } }] });
     } else {
-      tasks = await TasksModel.find(query);
+      tasks = await TasksModel.find({ $or: [query, { paused: { $in: [true, false] }, finished: false, ['project._id']: { $in: filter.projectIds } }] });
       quantityItems = tasks.length;
     }
 
