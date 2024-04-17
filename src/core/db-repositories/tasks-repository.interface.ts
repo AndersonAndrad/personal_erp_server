@@ -1,4 +1,4 @@
-import { Filter, Task, TaskNotation } from '../interfaces/tasks.interface';
+import { Filter, Pause, Task, TaskNotation } from '../interfaces/tasks.interface';
 
 import { PaginatedResponse } from '../interfaces/response.interface';
 
@@ -59,5 +59,5 @@ export interface TaskRepositoryDb {
   /**
    *  @param taskId
    */
-  pause(taskId: Task['_id']): Promise<void>;
+  pause(taskId: Task['_id'], pauseTask: Partial<Omit<Pause, '_id'>>): Promise<void>;
 }

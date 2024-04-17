@@ -1,6 +1,7 @@
 import { AddNotationDto } from '@app/core/dto/tasks/add-notation.dto';
 import { CreateTaskDto } from '@app/core/dto/tasks/create-tasks.dto';
 import { FilterTasksDto } from '@app/core/dto/tasks/filter-tasks.dto';
+import { PauseTaskDto } from '@app/core/dto/tasks/pause-tasks.dto';
 import { UpdateTaskDto } from '@app/core/dto/tasks/update-tasks.dto';
 import { Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
@@ -70,8 +71,8 @@ export class TaskController {
   @Patch(':taskId/toggle-status')
   @ApiParam({ name: 'taskId' })
   @ApiOperation({ description: 'Toggle paused status by id' })
-  toggleStatusPaude(@Param('taskId') taskId: Task['_id']): Promise<void> {
-    return this.taskService.toggleStatusPause(taskId);
+  toggleStatusPaude(@Param('taskId') taskId: Task['_id'], @Body() pauseTaskDto: PauseTaskDto): Promise<void> {
+    return this.taskService.toggleStatusPause(taskId, pauseTaskDto);
   }
 
   @Post(':taskId/add-notation')

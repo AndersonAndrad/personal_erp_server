@@ -1,6 +1,6 @@
 import { TaskRepositoryDb } from '@app/core/db-repositories/tasks-repository.interface';
 import { PaginatedResponse } from '@app/core/interfaces/response.interface';
-import { Filter, Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
+import { Filter, Pause, Task, TaskNotation } from '@app/core/interfaces/tasks.interface';
 import { TasksSchemaValidator } from '@app/core/schame-validation/tasks-schema.validation';
 import { TaskRepositorySymbol } from '@app/infra/db/mongoose/repositories/mongoose-tasks.repository';
 import { Inject, Injectable } from '@nestjs/common';
@@ -44,10 +44,10 @@ export class TaskService {
     await this.taskRepostiory.delete(taskId);
   }
 
-  async toggleStatusPause(taskId: Task['_id']): Promise<void> {
+  async toggleStatusPause(taskId: Task['_id'], pauseTask: Partial<Omit<Pause, '_id'>>): Promise<void> {
     this.taskSchemaValidator.idEntityValidate(taskId);
 
-    await this.taskRepostiory.pause(taskId);
+    await this.taskRepostiory.pause(taskId, pauseTask);
   }
 
   async addNotation(taskId: Task['_id'], notation: Pick<TaskNotation, 'notation'>): Promise<void> {
@@ -73,8 +73,8 @@ export class TaskService {
     return this.taskRepostiory.getNotationsByTask(taskId);
   }
 
-  async pause(taskId: Task['_id']): Promise<void> {
-    return this.taskRepostiory.pause(taskId);
+  async pause(taskId: Task['_id'], pauseTask: Partial<Omit<Pause, '_id'>>): Promise<void> {
+    return this.taskRepostiory.pause(taskId, pauseTask);
   }
 
   async startTask(taskId: Task['_id']): Promise<void> {

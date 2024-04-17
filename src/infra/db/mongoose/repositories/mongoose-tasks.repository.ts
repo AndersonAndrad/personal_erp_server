@@ -9,15 +9,15 @@ export const TaskRepositorySymbol = Symbol('taskRepositoryDb');
 
 @Injectable()
 export class MongooseTaskRepository implements TaskRepositoryDb {
-  async pause(taskId: string): Promise<void> {
+  async pause(taskId: string, pauseTask: Partial<Omit<Pause, '_id'>>): Promise<void> {
     const task = await TasksModel.findOne({ _id: taskId });
 
     if (!task) throw new Error(`Task with ID ${taskId} not found`);
 
     if (task.paused) {
-      await TasksModel.updateOne({ _id: taskId }, { 'pauses.0.end': new Date(), paused: !task.paused });
+      await TasksModel.updateOne({ _id: taskId }, { 'pauses.0.end': pauseTask?.end ?? new Date(), paused: !task.paused });
     } else {
-      const result: Partial<Omit<Pause, '_id'>> = { start: new Date() };
+      const result: Partial<Omit<Pause, '_id'>> = { start: pauseTask?.start ?? new Date(), activityBeforePause: pauseTask?.activityBeforePause ?? '' };
       await TasksModel.updateOne({ _id: taskId }, { $push: { pauses: { $each: [result], $position: 0 } }, paused: !task.paused });
     }
   }
