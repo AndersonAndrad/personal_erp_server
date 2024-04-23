@@ -68,6 +68,7 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     let tasks = [];
     let quantityItems: number = 0;
     const query = {};
+    const finishQuery = {};
 
     if ('projectIds' in filter) {
       query['project._id'] = { $in: filter.projectIds };
@@ -83,6 +84,7 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
       }
 
       query['start'] = { $gte: start, $lt: finish };
+      finishQuery['finish'] = { $gte: start, $lt: finish };
     } else if ('finish' in filter) {
       const start = new Date(new Date(filter.finish).setHours(0, 0, 0, 0));
 
@@ -93,6 +95,7 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
       }
 
       query['start'] = { $gte: start, $lt: finish };
+      finishQuery['finish'] = { $gte: start, $lt: finish };
     }
 
     if ('scheduled' in filter) {
@@ -100,9 +103,9 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     }
 
     if ('page' in filter && 'size' in filter) {
-      tasks = await TasksModel.find({ $or: [query, { paused: { $in: [true, false] }, finished: false, ['project._id']: { $in: filter.projectIds } }] });
+      tasks = await TasksModel.find({ $and: [{ ['project._id']: { $in: filter.projectIds } }, { $or: [query, finishQuery, { paused: { $in: [true, false] }, finished: false }] }] });
     } else {
-      tasks = await TasksModel.find({ $or: [query, { paused: { $in: [true, false] }, finished: false, ['project._id']: { $in: filter.projectIds } }] });
+      tasks = await TasksModel.find({ $and: [{ ['project._id']: { $in: filter.projectIds } }, { $or: [query, finishQuery, { paused: { $in: [true, false] }, finished: false }] }] });
       quantityItems = tasks.length;
     }
 
