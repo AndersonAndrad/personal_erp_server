@@ -25,10 +25,7 @@ export interface ProjectRepositoryDb {
    * @param project
    * @param projectId
    */
-  update(
-    projectId: Project['_id'],
-    project: Partial<Omit<Project, '_id'>>,
-  ): Promise<void>;
+  update(projectId: Project['_id'], project: Partial<Omit<Project, '_id'>>): Promise<void>;
 
   /**
    * @param projectId
