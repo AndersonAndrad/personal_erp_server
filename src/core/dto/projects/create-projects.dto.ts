@@ -7,4 +7,7 @@ export class CreateProjectDto implements Omit<Project, '_id' | 'tasks' | 'enable
 
   @ApiProperty({ description: 'Price per hours' })
   hoursPrice: number;
+
+  @ApiProperty({ description: 'Expected hours to work per day' })
+  expectedHoursPerDay: number;
 }

@@ -9,6 +9,7 @@ export interface Project {
    * @Warn save always in cents
    */
   hoursPrice: number;
+  expectedHoursPerDay: number;
 }
 
 export interface Filter extends Paginated {

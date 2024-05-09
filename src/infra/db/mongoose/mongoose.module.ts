@@ -1,16 +1,10 @@
-import {
-  Module,
-  OnApplicationBootstrap,
-  OnApplicationShutdown,
-} from '@nestjs/common';
+import { Module, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
 
-import mongoose from 'mongoose';
 import { DataOptions } from './mongoose.options';
+import mongoose from 'mongoose';
 
 @Module({ providers: [DataOptions] })
-export class MongooseModuleConfiguration
-  implements OnApplicationBootstrap, OnApplicationShutdown
-{
+export class MongooseModuleConfiguration implements OnApplicationBootstrap, OnApplicationShutdown {
   constructor(private options: DataOptions) {}
 
   async onApplicationShutdown(signal?: string) {

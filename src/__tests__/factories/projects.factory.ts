@@ -8,6 +8,7 @@ export const projectFactory = (): Omit<Project, '_id'> => {
     hoursPrice: faker.number.int({ max: 1000 }),
     name: faker.company.name(),
     tasks: [],
+    expectedHoursPerDay: faker.number.int({ max: 100 }),
   };
 };
 
