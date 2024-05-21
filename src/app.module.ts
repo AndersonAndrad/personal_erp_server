@@ -7,6 +7,7 @@ import { CategoryModule } from './applications/category/category.module';
 import { DashboardModule } from './applications/dashboard/dashboard.module';
 import { ProjectModule } from './applications/projects/project.module';
 import { TaskModule } from './applications/tasks/tasks.module';
+import { UserModule } from './applications/user/user.module';
 import { MongooseModuleConfiguration } from './infra/db/mongoose/mongoose.module';
 
 @Module({
@@ -22,6 +23,7 @@ import { MongooseModuleConfiguration } from './infra/db/mongoose/mongoose.module
     CategoryModule,
     BillModule,
     DashboardModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
