@@ -6,7 +6,7 @@ export interface UserRepositoryDb {
   /**
    * @param user
    */
-  create(user: Omit<User, '_id' | 'team'>): Promise<void>;
+  create(user: Omit<User, '_id' | 'team' | 'userHash'>): Promise<void>;
 
   /**
    * @param userId

@@ -2,7 +2,7 @@ import { Role, User } from '@app/core/interfaces/user.interface';
 
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserDto implements Omit<User, '_id' | 'team'> {
+export class CreateUserDto implements Omit<User, '_id' | 'team' | 'userHash'> {
   @ApiProperty({ description: 'User name', type: 'string', maxLength: 60, required: true })
   name: string;
 

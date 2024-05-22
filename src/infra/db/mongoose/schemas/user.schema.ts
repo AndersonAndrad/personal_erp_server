@@ -1,6 +1,7 @@
 import { Action, Permission, Role, User } from '@app/core/interfaces/user.interface';
 
 import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 export const PermissionSchema = new mongoose.Schema<Permission>({
   resource: { type: String, required: true },
@@ -16,6 +17,7 @@ export const RoleSchema = new mongoose.Schema<Role>({
 
 export const UserSchema = new mongoose.Schema<User>({
   name: { type: String, required: true },
+  userHash: { type: String, default: uuidv4() },
   email: { type: String, required: true },
   nickName: { type: String, required: true, unique: true },
   password: { type: String, required: true },

@@ -1,14 +1,14 @@
+import { Team } from './team.interface';
+
 export interface User {
   _id: string;
   name: string;
+  userHash: string;
   nickName: string;
   email: string;
   password: string;
   roles: Role[];
-  /**
-   * @todo in the future implement team interface
-   */
-  team: any;
+  team: Omit<Team, 'members'>[];
   blocked: boolean;
 }
 
