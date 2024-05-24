@@ -13,7 +13,7 @@ export class UserService implements UserRepositoryDb {
     private readonly userSchemaValidator: UserSchemaValidator,
   ) {}
 
-  async create(user: Omit<User, '_id' | 'team'>): Promise<void> {
+  async create(user: Omit<User, '_id' | 'team' | 'userHash'>): Promise<void> {
     return await this.UserRepository.create(user);
   }
 
