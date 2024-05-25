@@ -2,6 +2,7 @@ import { MongooseTaskRepository, TaskRepositorySymbol } from '@app/infra/db/mong
 
 import { TasksSchemaValidator } from '@app/core/schame-validation/tasks-schema.validation';
 import { Module } from '@nestjs/common';
+import { TaskSchedule } from './services/tasks.schedule';
 import { TaskService } from './services/tasks.service';
 import { TaskController } from './tasks.controller';
 
@@ -9,6 +10,7 @@ import { TaskController } from './tasks.controller';
   controllers: [TaskController],
   providers: [
     TaskService,
+    TaskSchedule,
     TasksSchemaValidator,
     {
       provide: TaskRepositorySymbol,

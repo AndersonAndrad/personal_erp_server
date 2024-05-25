@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BillModule } from './applications/bill/bill.module';
@@ -17,6 +18,7 @@ import { MongooseModuleConfiguration } from './infra/db/mongoose/mongoose.module
       isGlobal: true,
       envFilePath: ['.env', 'variaveis.ini'],
     }),
+    ScheduleModule.forRoot(),
     // application modueles
     ProjectModule,
     TaskModule,

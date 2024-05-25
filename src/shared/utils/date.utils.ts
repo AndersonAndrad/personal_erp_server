@@ -5,3 +5,15 @@ export const getFirstAndLastDayOfMonth = (): { firstDay: Date; lastDay: Date } =
 
   return { firstDay, lastDay };
 };
+
+export const getDateToBackup = (): string => {
+  return new Date()
+    .toLocaleDateString('pt-br', {
+      month: '2-digit',
+      day: '2-digit',
+      year: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+    .replace(/(\d{2})\/(\d{2})\/(\d{2}), (\d{2}):(\d{2})/, '$1-$2-$3_hrs$4-$5');
+};

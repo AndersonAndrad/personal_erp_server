@@ -60,4 +60,6 @@ export interface TaskRepositoryDb {
    *  @param taskId
    */
   pause(taskId: Task['_id'], pauseTask: Partial<Omit<Pause, '_id'>>): Promise<void>;
+
+  retrieveAllTasks(): Promise<Task[]>;
 }

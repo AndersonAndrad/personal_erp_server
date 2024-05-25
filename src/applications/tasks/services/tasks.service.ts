@@ -12,6 +12,10 @@ export class TaskService {
     private readonly taskSchemaValidator: TasksSchemaValidator,
   ) {}
 
+  async retrieveAllTasks(): Promise<Task[]> {
+    return this.taskRepostiory.retrieveAllTasks();
+  }
+
   async create(task: Pick<Task, 'name' | 'description' | 'project' | 'scheduled'>): Promise<Task> {
     this.taskSchemaValidator.createTasksValidate(task);
 
