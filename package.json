@@ -28,6 +28,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.0.2",
     "@nestjs/swagger": "^7.3.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb-memory-server": "^9.1.7",
     "mongoose": "^8.2.1",
     "reflect-metadata": "^0.2.0",
