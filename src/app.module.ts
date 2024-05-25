@@ -19,7 +19,7 @@ import { MongooseModuleConfiguration } from './infra/db/mongoose/mongoose.module
       envFilePath: ['.env', 'variaveis.ini'],
     }),
     ScheduleModule.forRoot(),
-    // application modueles
+    // application modules
     ProjectModule,
     TaskModule,
     CategoryModule,

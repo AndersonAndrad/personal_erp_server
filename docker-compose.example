@@ -4,12 +4,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - /Users/anderson.silva/documents/personal_erp_backup:/app/exports
     ports:
       - '3000:3000'
     depends_on:
       - personal_mongo
     environment:
       - MONGO_URI=
+      - BACKUP_ROUTINES=
     networks:
       - my-network
     container_name: personal_saas_server
