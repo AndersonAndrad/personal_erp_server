@@ -10,7 +10,7 @@ import * as path from 'path';
 export class TaskSchedule {
   constructor(@Inject(TaskRepositorySymbol) private readonly taskRepostiory: TaskRepositoryDb) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_HOUR)
   async backDocuments(): Promise<void> {
     console.log('Running cron job for exporting documents');
     const tasks = await this.taskRepostiory.retrieveAllTasks();
@@ -27,7 +27,7 @@ export class TaskSchedule {
 
     const today = new Date();
 
-    const differenceDay = `${today.getDate()}-${today.getMonth()}-${today.getFullYear()}`;
+    const differenceDay = `${today.getHours()}_${today.getMonth()}-${today.getDay()}-${today.getFullYear()}`;
 
     const exportPath = path.join(exportDir, `backup-task-${differenceDay}.json`);
     fs.writeFile(exportPath, JSON.stringify(tasks, null, 2), (error) => {
