@@ -13,7 +13,7 @@ export class ProjectService {
     private readonly projectSchemaValidator: ProjectSchemaValidator,
   ) {}
 
-  async create(project: Omit<Project, '_id' | 'tasks' | 'enabled'>): Promise<Project> {
+  async create(project: Omit<Project, '_id' | 'tasks' | 'enabled' | 'hashId'>): Promise<Project> {
     this.projectSchemaValidator.createProjectValidate(project);
 
     return await this.projectRepository.create({

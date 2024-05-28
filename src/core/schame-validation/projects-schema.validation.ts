@@ -16,7 +16,7 @@ export class ProjectSchemaValidator {
 
   private validateSchemaId = z.string().length(24);
 
-  createProjectValidate(project: Omit<Project, '_id' | 'tasks' | 'enabled'>) {
+  createProjectValidate(project: Omit<Project, '_id' | 'tasks' | 'enabled' | 'hashId'>) {
     try {
       this.createProjectValidateSchema.parse(project);
     } catch (error) {

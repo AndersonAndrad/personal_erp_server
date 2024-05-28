@@ -1,6 +1,7 @@
 import { Project } from '@app/core/interfaces/project.interface';
 import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 export const projectFactory = (): Omit<Project, '_id'> => {
   return {
@@ -9,6 +10,7 @@ export const projectFactory = (): Omit<Project, '_id'> => {
     name: faker.company.name(),
     tasks: [],
     expectedHoursPerDay: faker.number.int({ max: 100 }),
+    hashId: uuidv4(),
   };
 };
 

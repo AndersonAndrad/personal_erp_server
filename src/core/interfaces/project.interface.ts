@@ -6,6 +6,11 @@ export interface Project {
   enabled: boolean;
   tasks: any[];
   /**
+   * @warn used when need register with default indentification
+   * @warn used to search by tasks
+   */
+  hashId: string;
+  /**
    * @Warn save always in cents
    */
   hoursPrice: number;
