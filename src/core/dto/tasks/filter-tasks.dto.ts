@@ -3,5 +3,5 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class FilterTasksDto implements Filter {
   @ApiPropertyOptional()
-  projectIds?: string[];
+  hashId?: string[];
 }

@@ -3,7 +3,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class FilterDashboardTask implements Filter {
   @ApiPropertyOptional()
-  projectIds?: string[];
+  hashId?: string[];
 
   @ApiPropertyOptional()
   start?: Date;

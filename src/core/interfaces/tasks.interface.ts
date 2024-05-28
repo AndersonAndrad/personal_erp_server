@@ -27,7 +27,7 @@ export interface Pause {
 }
 
 export interface Filter {
-  projectIds?: Project['_id'][];
+  hashId?: Project['hashId'][];
   start?: Date;
   finish?: Date;
   scheduled?: boolean;

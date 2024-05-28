@@ -17,7 +17,7 @@ export class MongooseDashboardTaskRepository implements DashboardTaskRepository 
     const finish = new Date(new Date(filter.finish ?? lastDay).setHours(23, 59, 59, 999));
 
     query['finish'] = { $gte: start, $lt: finish };
-    query['project._id'] = { $in: filter.projectIds };
+    query['project.hashId'] = { $in: filter.hashId };
 
     const tasks = await TasksModel.find(query);
 

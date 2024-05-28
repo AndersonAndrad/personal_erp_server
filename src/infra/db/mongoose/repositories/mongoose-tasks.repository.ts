@@ -76,8 +76,8 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     const query = {};
     const finishQuery = {};
 
-    if ('projectIds' in filter) {
-      query['project._id'] = { $in: filter.projectIds };
+    if ('hashId' in filter) {
+      query['project.hashId'] = { $in: filter.hashId };
     }
 
     if ('start' in filter) {
@@ -109,9 +109,9 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
     }
 
     if ('page' in filter && 'size' in filter) {
-      tasks = await TasksModel.find({ $and: [{ ['project._id']: { $in: filter.projectIds } }, { $or: [query, finishQuery, { paused: { $in: [true, false] }, finished: false }] }] });
+      tasks = await TasksModel.find({ $and: [{ ['project.hashId']: { $in: filter.hashId } }, { $or: [query, finishQuery, { paused: { $in: [true, false] }, finished: false }] }] });
     } else {
-      tasks = await TasksModel.find({ $and: [{ ['project._id']: { $in: filter.projectIds } }, { $or: [query, finishQuery, { paused: { $in: [true, false] }, finished: false }] }] });
+      tasks = await TasksModel.find({ $and: [{ ['project.hashId']: { $in: filter.hashId } }, { $or: [query, finishQuery, { paused: { $in: [true, false] }, finished: false }] }] });
       quantityItems = tasks.length;
     }
 
