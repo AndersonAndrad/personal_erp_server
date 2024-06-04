@@ -1,9 +1,9 @@
-import { Role, User } from '@app/core/interfaces/user.interface';
+import { CreateUser, Role } from '@app/core/interfaces/user.interface';
 
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserDto implements Omit<User, '_id' | 'team' | 'userHash'> {
-  @ApiProperty({ description: 'User name', type: 'string', maxLength: 60, required: true })
+export class CreateUserDto implements CreateUser {
+  @ApiProperty({ description: 'User name', type: 'string', maxLength: 250, required: true })
   name: string;
 
   @ApiProperty({ description: 'Nick name to login and show to others users', type: 'string', maxLength: 30, required: true })
@@ -12,10 +12,10 @@ export class CreateUserDto implements Omit<User, '_id' | 'team' | 'userHash'> {
   @ApiProperty({ description: 'User email', type: 'string', maxLength: 100, required: true })
   email: string;
 
-  @ApiProperty({ description: 'Primary password', type: 'string', maxLength: 160, required: true })
+  @ApiProperty({ description: 'Primary password', type: 'string', maxLength: 250, required: true })
   password: string;
 
-  @ApiProperty({ description: 'Confirmation password, required the same primary password', type: 'string', maxLength: 160, required: true })
+  @ApiProperty({ description: 'Confirmation password, required the same primary password', type: 'string', maxLength: 250, required: true })
   confirmPassword: string;
 
   @ApiProperty({ description: 'User roles', type: 'array', required: true })

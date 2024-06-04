@@ -1,4 +1,4 @@
-import { Role, User } from '../interfaces/user.interface';
+import { CreateUser, Role, User } from '../interfaces/user.interface';
 
 import { PaginatedResponse } from '../interfaces/response.interface';
 
@@ -6,7 +6,7 @@ export interface UserRepositoryDb {
   /**
    * @param user
    */
-  create(user: Omit<User, '_id' | 'team' | 'userHash'>): Promise<void>;
+  create(user: CreateUser): Promise<void>;
 
   /**
    * @param userId
@@ -39,4 +39,9 @@ export interface UserRepositoryDb {
    * @param blocked
    */
   changeUserAccessStatus(userId: User['_id'], blocked: boolean): Promise<void>;
+
+  /**
+   * @param nickName
+   */
+  findByNickname(nickName: User['nickName']): Promise<User>;
 }

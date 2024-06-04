@@ -1,7 +1,7 @@
 import { UserRepositoryDb } from '@app/core/db-repositories/user-repository.interface';
 import { UpdateUserDto } from '@app/core/dto/user/update-user.dto';
 import { PaginatedResponse } from '@app/core/interfaces/response.interface';
-import { Role, User } from '@app/core/interfaces/user.interface';
+import { CreateUser, Role, User } from '@app/core/interfaces/user.interface';
 import { UserSchemaValidator } from '@app/core/schame-validation/user-schema.validation';
 import { UserRepositorySymbol } from '@app/infra/db/mongoose/repositories/mongoose-user.repository';
 import { Inject, Injectable } from '@nestjs/common';
@@ -13,7 +13,17 @@ export class UserService implements UserRepositoryDb {
     private readonly userSchemaValidator: UserSchemaValidator,
   ) {}
 
-  async create(user: Omit<User, '_id' | 'team' | 'userHash'>): Promise<void> {
+  async findByNickname(nickName: string): Promise<User> {
+    return await this.UserRepository.findByNickname(nickName);
+  }
+
+  async create(user: CreateUser): Promise<void> {
+    this.userSchemaValidator.createUserValidate(user);
+
+    const alreadyExists = await this.findByNickname(user.nickName);
+
+    if (!!alreadyExists) throw new Error('This nickName already exists');
+
     return await this.UserRepository.create(user);
   }
 

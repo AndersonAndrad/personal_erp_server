@@ -12,6 +12,10 @@ export interface User {
   blocked: boolean;
 }
 
+export interface CreateUser extends Omit<User, 'roles' | 'team' | '_id' | 'userHash'> {
+  confirmPassword: string;
+}
+
 export interface Role {
   _id: string;
   name: string;
