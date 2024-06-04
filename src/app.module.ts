@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthenticationModule } from './applications/authentication/authentication.module';
 import { BillModule } from './applications/bill/bill.module';
 import { CategoryModule } from './applications/category/category.module';
 import { DashboardModule } from './applications/dashboard/dashboard.module';
@@ -20,6 +21,7 @@ import { MongooseModuleConfiguration } from './infra/db/mongoose/mongoose.module
     }),
     ScheduleModule.forRoot(),
     // application modules
+    AuthenticationModule,
     ProjectModule,
     TaskModule,
     CategoryModule,
