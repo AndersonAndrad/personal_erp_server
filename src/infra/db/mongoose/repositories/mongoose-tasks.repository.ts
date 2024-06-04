@@ -82,22 +82,26 @@ export class MongooseTaskRepository implements TaskRepositoryDb {
 
     if ('start' in filter) {
       const start = new Date(new Date(filter.start).setHours(0, 0, 0, 0));
+      start.setHours(start.getHours() - 3);
 
       let finish = new Date(new Date(filter.start).setHours(23, 59, 59, 999));
 
       if ('finish' in filter) {
         finish = new Date(new Date(filter.finish).setHours(23, 59, 59, 999));
+        finish.setHours(finish.getHours() - 3);
       }
 
       query['start'] = { $gte: start, $lt: finish };
       finishQuery['finish'] = { $gte: start, $lt: finish };
     } else if ('finish' in filter) {
       const start = new Date(new Date(filter.finish).setHours(0, 0, 0, 0));
+      start.setHours(start.getHours() - 3);
 
       let finish = new Date(new Date(filter.finish).setHours(23, 59, 59, 999));
 
       if ('start' in filter) {
         finish = new Date(new Date(filter.finish).setHours(23, 59, 59, 999));
+        finish.setHours(finish.getHours() - 3);
       }
 
       query['start'] = { $gte: start, $lt: finish };
