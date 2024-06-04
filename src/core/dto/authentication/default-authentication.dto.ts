@@ -1,7 +1,7 @@
 import { DefaultAuthentication } from '@app/core/interfaces/authentication.interface';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class DefaultLoginDto implements DefaultAuthentication {
+export class DefaultAuthenticatopnDto implements DefaultAuthentication {
   @ApiProperty({ description: 'NickName or Email to login', minLength: 3, required: true })
   login: string;
 

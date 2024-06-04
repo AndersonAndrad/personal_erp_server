@@ -1,6 +1,6 @@
-import { DefaultLoginDto as DefaultAuthenticatopnDto } from '@app/core/dto/login/default-authentication.dto';
 import { Body, Controller, Post } from '@nestjs/common';
 
+import { DefaultAuthenticatopnDto } from '@app/core/dto/authentication/default-authentication.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { DefaultAuthenticationService } from './services/default-authentication.service';
 
