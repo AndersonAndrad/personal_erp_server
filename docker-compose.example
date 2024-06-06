@@ -13,6 +13,8 @@ services:
     environment:
       - MONGO_URI=
       - BACKUP_ROUTINES=
+      - JWT_TOKEN=
+      - SALTS_ROUNDS=
     networks:
       - my-network
     container_name: personal_saas_server
