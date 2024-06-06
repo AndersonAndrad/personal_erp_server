@@ -8,5 +8,6 @@ import { UserController } from './user.controller';
 @Module({
   controllers: [UserController],
   providers: [UserSchemaValidator, UserService, { provide: UserRepositorySymbol, useClass: MongooseUserRepository }],
+  exports: [UserService],
 })
-export class UserModule {}
+export class UserModule { }

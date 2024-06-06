@@ -43,5 +43,5 @@ export interface UserRepositoryDb {
   /**
    * @param nickName
    */
-  findByNickname(nickName: User['nickName']): Promise<User>;
+  findByLogin(nickNameOrEmail: User['nickName'] | User['email']): Promise<User>;
 }

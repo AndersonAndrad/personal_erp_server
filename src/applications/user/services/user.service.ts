@@ -5,26 +5,31 @@ import { CreateUser, Role, User } from '@app/core/interfaces/user.interface';
 import { UserSchemaValidator } from '@app/core/schame-validation/user-schema.validation';
 import { UserRepositorySymbol } from '@app/infra/db/mongoose/repositories/mongoose-user.repository';
 import { Inject, Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService implements UserRepositoryDb {
+  private salts_rounds: number = Number(process.env.SALTS_ROUNDS);
+
   constructor(
     @Inject(UserRepositorySymbol) private readonly UserRepository: UserRepositoryDb,
     private readonly userSchemaValidator: UserSchemaValidator,
-  ) {}
+  ) { }
 
-  async findByNickname(nickName: string): Promise<User> {
-    return await this.UserRepository.findByNickname(nickName);
+  async findByLogin(nickName: string): Promise<User> {
+    return await this.UserRepository.findByLogin(nickName);
   }
 
   async create(user: CreateUser): Promise<void> {
     this.userSchemaValidator.createUserValidate(user);
 
-    const alreadyExists = await this.findByNickname(user.nickName);
+    const alreadyExists = await this.findByLogin(user.nickName);
 
     if (!!alreadyExists) throw new Error('This nickName already exists');
 
-    return await this.UserRepository.create(user);
+    user.password = bcrypt.hashSync(`${user.password}/${user.nickName.toLowerCase()}`, this.salts_rounds);
+
+    await this.UserRepository.create(user);
   }
 
   async findOne(userId: string): Promise<User> {
@@ -36,6 +41,13 @@ export class UserService implements UserRepositoryDb {
   }
 
   async update(userId: string, user: UpdateUserDto): Promise<void> {
+    if ('password' in user && 'confirmPassword' in user) {
+      user['password'] = bcrypt.hashSync(`${user.password}/${user['nickName'].toLowerCase()}`, this.salts_rounds);
+    } else {
+      delete user['password'];
+      delete user['confirmPassword'];
+    }
+
     return await this.UserRepository.update(userId, user);
   }
 

@@ -9,10 +9,10 @@ export const UserRepositorySymbol = Symbol('UserRepositoryDb');
 
 @Injectable()
 export class MongooseUserRepository implements UserRepositoryDb {
-  async findByNickname(nickName: string): Promise<User> {
-    const regexNickName: RegExp = new RegExp(nickName, 'i');
+  async findByLogin(nickNameOrEmail: string): Promise<User> {
+    const regexNickName: RegExp = new RegExp(nickNameOrEmail, 'i');
 
-    const user = await UserModel.findOne({ nickName: { $regex: regexNickName } });
+    const user = await UserModel.findOne({ $or: [{ nickName: { $regex: regexNickName } }, { email: { $regex: regexNickName } }] });
 
     if (!user) return undefined;
 
