@@ -1,12 +1,10 @@
 import { AccountBank, TypeAccountBank } from '@app/core/interfaces/account-bank.interface';
+
 import { ApiProperty } from '@nestjs/swagger';
 
-export class AccountBankDto implements Omit<AccountBank, '_id'> {
+export class AccountBankDto implements Omit<AccountBank, '_id' | 'currency'> {
   @ApiProperty()
   name: string;
-
-  @ApiProperty()
-  currency: number;
 
   @ApiProperty()
   accountNumber: string;
@@ -22,4 +20,7 @@ export class AccountBankDto implements Omit<AccountBank, '_id'> {
 
   @ApiProperty()
   bank: string;
+
+  @ApiProperty({ description: 'Color used to show in the frontend graphics' })
+  color: string;
 }

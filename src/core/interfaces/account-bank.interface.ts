@@ -7,6 +7,7 @@ export interface AccountBank {
   typeAccount: TypeAccountBank;
   disabled: boolean;
   bank: string;
+  color: string;
 }
 
 export interface MonthHistory {

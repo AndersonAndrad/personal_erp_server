@@ -1,4 +1,5 @@
 import { AccountBank, Bill, MonthHistory, TypeAccountBank } from '@app/core/interfaces/account-bank.interface';
+
 import mongoose from 'mongoose';
 
 export const AccountBankSchema = new mongoose.Schema<AccountBank>({
@@ -8,6 +9,7 @@ export const AccountBankSchema = new mongoose.Schema<AccountBank>({
   currency: { type: Number, default: 0 },
   disabled: { type: Boolean, default: false },
   name: { type: String },
+  color: { type: String },
   typeAccount: { enum: [TypeAccountBank.PJ, TypeAccountBank.PF] },
 });
 

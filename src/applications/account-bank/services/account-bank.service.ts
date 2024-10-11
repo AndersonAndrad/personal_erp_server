@@ -5,9 +5,9 @@ import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AccountBankService {
-  constructor(@Inject(AccountBankSymbol) private readonly accountBankRepository: AccountBankRepositoryDb) {}
+  constructor(@Inject(AccountBankSymbol) private readonly accountBankRepository: AccountBankRepositoryDb) { }
 
-  create(entity: Omit<AccountBank, '_id'>): Promise<void> {
+  create(entity: Omit<AccountBank, '_id' | 'currency'>): Promise<void> {
     return this.accountBankRepository.create(entity);
   }
 

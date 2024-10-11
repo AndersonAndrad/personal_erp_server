@@ -1,12 +1,13 @@
-import { AccountBankRepositoryDb, MonthHistoryRespositoryDb } from '@app/core/db-repositories/account-bank.repository';
 import { AccountBank, MonthHistory } from '@app/core/interfaces/account-bank.interface';
-import { PaginatedResponse } from '@app/core/interfaces/response.interface';
-import { Injectable } from '@nestjs/common';
+import { AccountBankRepositoryDb, MonthHistoryRespositoryDb } from '@app/core/db-repositories/account-bank.repository';
+
 import { AccountBankModel } from '../schemas/account-bank.schema';
+import { Injectable } from '@nestjs/common';
+import { PaginatedResponse } from '@app/core/interfaces/response.interface';
 
 @Injectable()
 export class MongooseAccountBankRespository implements AccountBankRepositoryDb {
-  async create(entity: Omit<AccountBank, '_id'>): Promise<void> {
+  async create(entity: Omit<AccountBank, '_id' | 'currency'>): Promise<void> {
     await AccountBankModel.create(entity);
   }
 
