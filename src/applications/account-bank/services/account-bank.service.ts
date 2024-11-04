@@ -22,4 +22,8 @@ export class AccountBankService {
   delete(entityId: string): Promise<void> {
     return this.accountBankRepository.delete(entityId);
   }
+
+  findById(entityId: AccountBank['_id']): Promise<AccountBank> {
+    return this.accountBankRepository.findById(entityId);
+  }
 }

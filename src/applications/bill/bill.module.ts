@@ -7,5 +7,6 @@ import { MongooseBillRepository } from '@app/infra/db/mongoose/repositories/mong
 @Module({
   controllers: [BillController],
   providers: [BillService, { provide: BillRepositorySymbol, useClass: MongooseBillRepository }],
+  exports: [BillService],
 })
-export class BillModule {}
+export class BillModule { }

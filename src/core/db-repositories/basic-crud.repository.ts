@@ -25,4 +25,9 @@ export interface BasicCrudRepositoryDb<Entity extends BaseData> {
    * @param entityId
    */
   delete(entityId: Entity['_id']): Promise<void>;
+
+  /**
+   * @param entityId
+   */
+  findById(entityId: Entity['_id']): Promise<Entity>;
 }

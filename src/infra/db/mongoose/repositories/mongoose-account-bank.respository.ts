@@ -27,8 +27,12 @@ export class MongooseAccountBankRespository implements AccountBankRepositoryDb {
     throw new Error('Method not implemented.');
   }
 
-  delete(entityId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(entityId: string): Promise<void> {
+    await AccountBankModel.deleteOne({ _id: entityId });
+  }
+
+  async findById(entityId: string): Promise<AccountBank> {
+    return await AccountBankModel.findById(entityId);
   }
 }
 
@@ -47,6 +51,10 @@ export class MongooseMonthHistoryRespository implements MonthHistoryRespositoryD
   }
 
   delete(entityId: string): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+
+  findById(entityId: string): Promise<MonthHistory> {
     throw new Error('Method not implemented.');
   }
 }

@@ -1,21 +1,26 @@
+import { AccountBank } from './account-bank.interface';
 import { Category } from './category.interface';
 
 export interface Bill {
   _id: string;
-  dueDate: Date;
+  dueDate?: Date;
   paidDate?: Date;
-  totalPaid: number;
-  observation: string;
+  totalPaid?: number;
+  observation?: string;
   description: string;
-  parentPaid: Bill;
-  installmentValue: number;
+  parentPaid?: Bill;
+  installmentValue?: number;
   code: string;
   totalValue: number;
-  paidOut: boolean;
-  accountBank: any /** @todo add interface to account bank */;
-  client: any /** @todo add client interface  */;
-  provider: any /** @todo add provider interface  */;
-  typePayment: any /** @todo add type payment interface  */;
-  category: Category;
-  cashFlow: any /** @todo add cashFlow enum */;
+  paidOut?: boolean;
+  accountBank: AccountBank;
+  client?: any /** @todo add client interface  */;
+  provider?: any /** @todo add provider interface  */;
+  category?: Category;
+  cashFlow: CashFlow;
+}
+
+export enum CashFlow {
+  EXPENSES = 'expenses',
+  INCOME = 'income',
 }
