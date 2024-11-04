@@ -1,6 +1,8 @@
 import { AccountBank } from './account-bank.interface';
 import { Category } from './category.interface';
+import { PaginatedRequest } from './response.interface';
 
+export interface BillFindAll extends PaginatedRequest { }
 export interface Bill {
   _id: string;
   dueDate?: Date;

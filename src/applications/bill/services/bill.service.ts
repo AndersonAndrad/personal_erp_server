@@ -1,5 +1,5 @@
 import { BillRepositoryDb, BillRepositorySymbol } from '@app/core/db-repositories/bill-repository.interface';
-import { Bill } from '@app/core/interfaces/bill.interface';
+import { Bill, BillFindAll } from '@app/core/interfaces/bill.interface';
 import { PaginatedResponse } from '@app/core/interfaces/response.interface';
 import { Inject, Injectable } from '@nestjs/common';
 
@@ -15,8 +15,8 @@ export class BillService {
     return await this.billRepository.create(entity);
   }
 
-  findAll(filter: any): Promise<PaginatedResponse<Bill>> {
-    throw new Error('Method not implemented.');
+  findAll(filter: BillFindAll): Promise<PaginatedResponse<Bill>> {
+    return this.billRepository.findAll(filter);
   }
   update(entityId: string, entity: Partial<Omit<Bill, '_id'>>): Promise<void> {
     throw new Error('Method not implemented.');
