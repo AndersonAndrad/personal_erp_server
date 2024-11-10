@@ -1,12 +1,12 @@
 import * as csvParser from 'csv-parser';
 
-import { Bill, CashFlow } from '@app/core/interfaces/bill.interface';
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { Bill, CashFlow } from '@app/core/interfaces/bill.interface';
 
-import { BillService } from '@app/applications/bill/services/bill.service';
 import { AccountBank } from '@app/core/interfaces/account-bank.interface';
-import { Readable } from 'stream';
 import { AccountBankService } from './account-bank.service';
+import { BillService } from '@app/applications/bill/services/bill.service';
+import { Readable } from 'stream';
 
 interface Transaction {
   Data: string;
