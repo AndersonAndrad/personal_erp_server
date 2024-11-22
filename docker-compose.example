@@ -15,6 +15,7 @@ services:
       - BACKUP_ROUTINES=
       - JWT_TOKEN=
       - SALTS_ROUNDS=
+      - APP_PORT=3000
     networks:
       - my-network
     container_name: personal_saas_server
